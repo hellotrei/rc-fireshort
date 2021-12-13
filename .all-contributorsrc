@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 50,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "hellotrei",
+      "name": "Trei R",
+      "avatar_url": "https://avatars.githubusercontent.com/u/59990460?v=4",
+      "profile": "https://github.com/hellotrei",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "FireShort",
+  "projectOwner": "hellotrei",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
