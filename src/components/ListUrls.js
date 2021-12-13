@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Badge,
   Box,
@@ -17,17 +17,18 @@ import {
   TablePagination,
   TableRow,
   Tooltip,
-} from '@material-ui/core';
+} from "@material-ui/core";
 import {
   DeleteForever as DeleteForeverIcon,
   Edit as EditIcon,
   FileCopyOutlined as FileCopyOutlinedIcon,
   Visibility as VisibilityIcon,
-  Assessment as AnalyticsIcon, OpenInBrowser
-} from '@material-ui/icons';
-import { useHistory } from 'react-router';
-import LockIcon from '@material-ui/icons/Lock';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
+  Assessment as AnalyticsIcon,
+  OpenInBrowser,
+} from "@material-ui/icons";
+import { useHistory } from "react-router";
+import LockIcon from "@material-ui/icons/Lock";
+import LockOpenIcon from "@material-ui/icons/LockOpen";
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -120,7 +121,12 @@ export default function ListUrls(props) {
                           </Button>
                         </Tooltip>
                         <Tooltip title={card.data.hits + " Hits"}>
-                          <IconButton onClick={() => { props.openHits(card.data.curl) }} style={{ cursor: "pointer" }}>
+                          <IconButton
+                            onClick={() => {
+                              props.openHits(card.data.curl);
+                            }}
+                            style={{ cursor: "pointer" }}
+                          >
                             <Badge
                               badgeContent={card.data.hits}
                               color="secondary"
@@ -150,9 +156,11 @@ export default function ListUrls(props) {
                           </Tooltip>
                           <Tooltip title="Analytics">
                             <Button
-                              size='small'
+                              size="small"
                               disabled={!card.data.track}
-                              onClick={() => history.push(`/analytics/${card.data.curl}`)}
+                              onClick={() =>
+                                history.push(`/analytics/${card.data.curl}`)
+                              }
                             >
                               <AnalyticsIcon />
                             </Button>
@@ -182,9 +190,15 @@ export default function ListUrls(props) {
                             <Button
                               size="small"
                               color="default"
-                              onClick={() => props.toggleSecurity(card.data.curl)}
+                              onClick={() =>
+                                props.toggleSecurity(card.data.curl)
+                              }
                             >
-                              {card.data.locked ? <LockIcon /> : <LockOpenIcon />}
+                              {card.data.locked ? (
+                                <LockIcon />
+                              ) : (
+                                <LockOpenIcon />
+                              )}
                             </Button>
                           </Tooltip>
                         </ButtonGroup>
@@ -207,7 +221,6 @@ export default function ListUrls(props) {
                           {card.data.lurl}
                         </Box>
                       </TableCell>
-
                     </TableRow>
                   );
                 })}

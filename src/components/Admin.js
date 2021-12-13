@@ -14,7 +14,7 @@ import { addLink, setLinks } from "../actions";
 import { getFilteredLinks } from "../selectors";
 import { myFirebase, db } from "../firebase/firebase";
 import "./components.module.css";
-
+import "./login.css";
 import {
   Container,
   CssBaseline,
@@ -25,7 +25,6 @@ import {
   Typography,
   Card,
 } from "@material-ui/core";
-
 import { withStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -393,177 +392,182 @@ class Admin extends Component {
       alert("Password cannot be empty.");
     }
   };
-
   render() {
     const { classes } = this.props;
     const { inputBackdrop, newPsw } = this.state;
-
     return (
-      <React.Fragment>
-        {inputBackdrop ? (
-          <div
-            style={{
-              position: "fixed",
-              width: "100vw",
-              height: "100vh",
-              background: "rgb(0,0,0,.5)",
-              display: "grid",
-              placeItems: "center",
-              zIndex: 10,
-            }}
-          >
-            <div style={{ padding: "20px", backgroundColor: "white" }}>
-              <h3>Protect Link With Password</h3>
-              <div style={{ display: "block", padding: "20px" }}>
-                <input
-                  placeholder="Enter Password..."
-                  value={newPsw}
-                  style={{
-                    padding: "15px",
-                    fontSize: "15px",
-                    borderRadius: "2px",
-                    width: "100%",
-                  }}
-                  onChange={(e) => this.setState({ newPsw: e.target.value })}
-                />
-                <div style={{ marginTop: "25px" }}>
-                  <button
-                    onClick={(e) => this.onPswSave(e)}
-                    style={{
-                      padding: "12px",
-                      color: "white",
-                      backgroundColor: "black",
-                      fontSize: "15px",
-                      border: "none",
-                      marginRight: "15px",
-                      borderRadius: "5px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    Save
-                  </button>
-                  <button
-                    onClick={(e) => this.setState({ inputBackdrop: false })}
-                    style={{
-                      padding: "12px",
-                      color: "white",
-                      backgroundColor: "red",
-                      fontSize: "15px",
-                      border: "none",
-                      marginRight: "15px",
-                      borderRadius: "5px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    Cancel
-                  </button>
+      <div className="section">
+        <div className="container">
+          <React.Fragment>
+            {inputBackdrop ? (
+              <div
+                style={{
+                  position: "fixed",
+                  width: "100vw",
+                  height: "100vh",
+                  borderRadius: "10vh",
+                  background: "rgb(0,0,0,.5)",
+                  display: "grid",
+                  placeItems: "center",
+                  zIndex: 10,
+                }}
+              >
+                <div style={{ padding: "20px", backgroundColor: "white" }}>
+                  <h3>Protect Link With Password</h3>
+                  <div style={{ display: "block", padding: "20px" }}>
+                    <input
+                      placeholder="Enter Password..."
+                      value={newPsw}
+                      style={{
+                        padding: "15px",
+                        fontSize: "15px",
+                        borderRadius: "2px",
+                        width: "100%",
+                      }}
+                      onChange={(e) =>
+                        this.setState({ newPsw: e.target.value })
+                      }
+                    />
+                    <div style={{ marginTop: "25px" }}>
+                      <button
+                        onClick={(e) => this.onPswSave(e)}
+                        style={{
+                          padding: "12px",
+                          color: "white",
+                          backgroundColor: "black",
+                          fontSize: "15px",
+                          border: "none",
+                          marginRight: "15px",
+                          borderRadius: "5px",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={(e) => this.setState({ inputBackdrop: false })}
+                        style={{
+                          padding: "12px",
+                          color: "white",
+                          backgroundColor: "red",
+                          fontSize: "15px",
+                          border: "none",
+                          marginRight: "15px",
+                          borderRadius: "5px",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        ) : null}
-        <CssBaseline />
-        <Header />
-        {this.state.loading && <LinearProgress color="secondary" />}
-        <main>
-          <MainToolBar
-            state={this.state}
-            updateViewMode={this.updateViewMode}
-            refresh={this.updateUrls}
-          />
-          {this.state.shortUrls.length > 0 ? (
-            <>
-              {this.state.viewMode === "module" ? (
-                <CardUrls
-                  shortUrls={this.props.links}
-                  handleEditShortUrl={this.handleEditShortUrl}
-                  handleDeleteShortUrl={this.handleDeleteShortUrl}
-                  openHits={this.getHits}
-                  // updateHits={this.updateUrls}
-                  toggleSecurity={this.toggleSecurity}
-                />
+            ) : null}
+            <CssBaseline />
+            <Header />
+            {this.state.loading && <LinearProgress color="secondary" />}
+            <main>
+              <MainToolBar
+                state={this.state}
+                updateViewMode={this.updateViewMode}
+                refresh={this.updateUrls}
+              />
+              {this.state.shortUrls.length > 0 ? (
+                <>
+                  {this.state.viewMode === "module" ? (
+                    <CardUrls
+                      shortUrls={this.props.links}
+                      handleEditShortUrl={this.handleEditShortUrl}
+                      handleDeleteShortUrl={this.handleDeleteShortUrl}
+                      openHits={this.getHits}
+                      // updateHits={this.updateUrls}
+                      toggleSecurity={this.toggleSecurity}
+                    />
+                  ) : (
+                    <ListUrls
+                      shortUrls={this.state.shortUrls}
+                      handleEditShortUrl={this.handleEditShortUrl}
+                      handleDeleteShortUrl={this.handleDeleteShortUrl}
+                      toggleSecurity={this.toggleSecurity}
+                      openHits={this.getHits}
+                    />
+                  )}
+                </>
               ) : (
-                <ListUrls
-                  shortUrls={this.state.shortUrls}
-                  handleEditShortUrl={this.handleEditShortUrl}
-                  handleDeleteShortUrl={this.handleDeleteShortUrl}
-                  toggleSecurity={this.toggleSecurity}
-                  openHits={this.getHits}
-                />
+                <>
+                  {this.state.loading == false && (
+                    <Container maxWidth="md">
+                      <img
+                        src={"/Images/pixeltrue-search.svg"}
+                        style={{
+                          margin: "30px auto",
+                          display: "block",
+                          width: "100%",
+                          maxHeight: "400px",
+                        }}
+                      />
+                      <Card
+                        className={classes.toolBarRoot}
+                        style={{ marginBottom: "30px" }}
+                      >
+                        <Typography
+                          align="center"
+                          style={{ padding: "30px 60px" }}
+                          variant="h6"
+                        >
+                          Oops! Looks like you don't have any links. Press the
+                          "+" icon below to start adding links.
+                        </Typography>
+                      </Card>
+                    </Container>
+                  )}
+                </>
               )}
-            </>
-          ) : (
-            <>
-              {this.state.loading == false && (
-                <Container maxWidth="md">
-                  <img
-                    src={"/Images/pixeltrue-search.svg"}
-                    style={{
-                      margin: "30px auto",
-                      display: "block",
-                      width: "100%",
-                      maxHeight: "400px",
-                    }}
-                  />
-                  <Card
-                    className={classes.toolBarRoot}
-                    style={{ marginBottom: "30px" }}
-                  >
-                    <Typography
-                      align="center"
-                      style={{ padding: "30px 60px" }}
-                      variant="h6"
-                    >
-                      Oops! Looks like you don't have any links. Press the "+"
-                      icon below to start adding links.
-                    </Typography>
-                  </Card>
-                </Container>
-              )}
-            </>
-          )}
 
-          <Fab
-            aria-label="Add"
-            className={classes.fab}
-            color="primary"
-            onClick={this.handleClickOpen}
-          >
-            <AddIcon />
-          </Fab>
+              <Fab
+                aria-label="Add"
+                className={classes.fab}
+                color="primary"
+                onClick={this.handleClickOpen}
+              >
+                <AddIcon />
+              </Fab>
 
-          <Backdrop className={classes.backdrop} open={this.state.backdrop}>
-            <CircularProgress color="inherit" />
-          </Backdrop>
+              <Backdrop className={classes.backdrop} open={this.state.backdrop}>
+                <CircularProgress color="inherit" />
+              </Backdrop>
 
-          <UrlsDialog
-            state={this.state}
-            handleClose={this.handleClose}
-            handleLurlChange={this.handleLurlChange}
-            handleCurlChange={this.handleCurlChange}
-            handleSubmit={this.handleSubmit}
-            handleTrackChange={this.handleTrackChange}
-            handleProtectChange={this.handleProtectChange}
-            handlePswChange={this.handlePswChange}
-          />
+              <UrlsDialog
+                state={this.state}
+                handleClose={this.handleClose}
+                handleLurlChange={this.handleLurlChange}
+                handleCurlChange={this.handleCurlChange}
+                handleSubmit={this.handleSubmit}
+                handleTrackChange={this.handleTrackChange}
+                handleProtectChange={this.handleProtectChange}
+                handlePswChange={this.handlePswChange}
+              />
 
-          <HitsDialog
-            state={this.state}
-            hitActivity={this.state.hits}
-            handleClose={this.handleClose}
-          />
+              <HitsDialog
+                state={this.state}
+                hitActivity={this.state.hits}
+                handleClose={this.handleClose}
+              />
 
-          <Snackbar
-            open={this.state.successToast}
-            autoHideDuration={6000}
-            onClose={this.handleToastClose}
-          >
-            <Alert onClose={this.handleToastClose} severity="success">
-              Successfully added!
-            </Alert>
-          </Snackbar>
-        </main>
-      </React.Fragment>
+              <Snackbar
+                open={this.state.successToast}
+                autoHideDuration={6000}
+                onClose={this.handleToastClose}
+              >
+                <Alert onClose={this.handleToastClose} severity="success">
+                  Successfully added!
+                </Alert>
+              </Snackbar>
+            </main>
+          </React.Fragment>
+        </div>
+      </div>
     );
   }
 }
